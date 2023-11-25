@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #00b09b, #96c93d);
+            color: white;
+            text-align: center;
+            padding: 50px;
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 24px;
+            background: rgba(255, 255, 255, 0.2);
+            display: inline-block;
+            padding: 10px;
+            border-radius: 15px;
+        }
+
+        .logout-button {
+            background-color: #f44336; /* Rojo para el botón de cerrar sesión */
+            color: white;
+            padding: 10px 20px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            text-decoration: none; /* Remover subrayado de enlaces */
+            display: inline-block; /* Permitir que se apliquen estilos de margen y padding */
+        }
+
+        .logout-button:hover {
+            background-color: #c62828; /* Rojo más oscuro para efecto hover */
+        }
+        
+    </style>
+</head>
+<body>
+    <h1>Bienvenido al Dashboard</h1>
+    <% if (message) { %>
+        <p><%= message %></p>
+    <% } %>
+    <!-- Botón de cerrar sesión -->
+    <form action="/users/logout" method="post">
+        <button type="submit" class="logout-button">Cerrar Sesión</button>
+    </form>
+</body>
+</html>

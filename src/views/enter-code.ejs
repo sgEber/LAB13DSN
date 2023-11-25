@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Autenticación de Dos Factores</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .verification-container {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 400px;
+      box-sizing: border-box;
+    }
+    .verification-container h2 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .verification-container p {
+      color: #666;
+      line-height: 1.4;
+    }
+    .code-inputs {
+      margin: 20px 0;
+      display: flex;
+      justify-content: center;
+    }
+    .code-inputs input {
+      font-size: 16px;
+      padding: 10px;
+      margin: 0 5px;
+      width: 40px;
+      text-align: center;
+      border: 2px solid #dddddd;
+      border-radius: 5px;
+    }
+    .verify-btn {
+      background-color: #0000FF;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 20px;
+    }
+    .verify-btn:hover {
+      background-color: #182693;
+    }
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      font-size: 20px;
+    }
+    .code-inputs {
+            display: flex;
+            justify-content: center;
+        }
+
+    .code-input {
+        font-size: 16px;
+        padding: 10px;
+        margin: 0 5px;
+        width: 40px; /* Ancho para un solo carácter */
+        text-align: center;
+        border: 2px solid #dddddd;
+        border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+    <div class="verification-container">
+        <span class="close-btn">&times;</span>
+        <h2>Autenticación de Dos Factores</h2>
+        <p>Hemos enviado un código de seguridad de 6 dígitos a tu correo electrónico. Por favor, ingresa tu código a continuación.</p>
+        <form action="/users/verify-code" method="post" id="verificationForm">
+            <div class="code-inputs">
+              <!-- Asegúrate de que los campos de entrada tienen el atributo 'name' configurado correctamente -->
+              <input type="text" id="code1" class="code-input" name="code1" maxlength="1" required>
+              <input type="text" id="code2" class="code-input" name="code2" maxlength="1" required>
+              <input type="text" id="code3" class="code-input" name="code3" maxlength="1" required>
+              <input type="text" id="code4" class="code-input" name="code4" maxlength="1" required>
+              <input type="text" id="code5" class="code-input" name="code5" maxlength="1" required>
+              <input type="text" id="code6" class="code-input" name="code6" maxlength="1" required>
+              <!-- Campo oculto para el nombre de usuario -->
+              <input type="hidden" name="username" value="<%= username %>">
+            </div>
+            <!-- Botón de envío ahora dentro del formulario -->
+            <button type="submit" class="verify-btn">Verificar Código</button>
+        </form>
+      </div>
+
+      <script>
+        // JavaScript para manejar la pegada del código y dividirlo en los cuadros
+        document.addEventListener('DOMContentLoaded', function () {
+            var codeInputs = document.querySelectorAll('.code-input');
+            codeInputs.forEach(function(input, index) {
+                input.addEventListener('paste', function(e) {
+                    var data = e.clipboardData.getData('text');
+                    // Divide el texto pegado y lo distribuye en los cuadros
+                    data.split('').forEach(function(value, i) {
+                        if (codeInputs[i]) {
+                            codeInputs[i].value = value;
+                            if (i < codeInputs.length - 1) {
+                                codeInputs[i + 1].focus();
+                            }
+                        }
+                    });
+                    // Evita la acción de pegada predeterminada
+                    e.preventDefault();
+                    // Llama a una función para concatenar los valores y llenar el campo oculto
+                    fillHiddenCodeField();
+                });
+
+                // Evento para pasar al siguiente cuadro al ingresar un dígito
+                input.addEventListener('input', function() {
+                    if (input.value.length === 1 && index < codeInputs.length - 1) {
+                        codeInputs[index + 1].focus();
+                    }
+                    fillHiddenCodeField();
+                });
+            });
+
+            // Función para llenar el campo oculto con el código completo
+            function fillHiddenCodeField() {
+                var fullCode = Array.from(codeInputs).map(function(input) { return input.value; }).join('');
+                document.getElementById('fullCode').value = fullCode;
+            }
+        });
+    </script>
+</body>
+</html>

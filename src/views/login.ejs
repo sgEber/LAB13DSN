@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar Sesión</title>
+  <style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background: linear-gradient(to bottom right, #FFFFFF, #FFFFFF); 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+    }
+    .login-container {
+        background: linear-gradient(to bottom right, #FFFFFF, #FFFFFF);
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 300px;
+        box-sizing: border-box;
+    }
+    .login-container h2 {
+      color: #0000FF;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .login-container input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border: none;
+      box-sizing: border-box;
+    }
+    .login-container button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #0000FF;
+      color: white;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .login-container button:hover {
+      background-color: #0000FF;
+    }
+    .login-container .extra-links {
+      text-align: center;
+      margin-top: 15px;
+    }
+    .login-container .extra-links a {
+      color: #0000FF; 
+      text-decoration: none;
+      font-size: 14px;
+    }
+    
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Laboratorio 13</h2>
+    <% if (error) { %>
+      <p style="color: red;"><%= error %></p>
+    <% } %>
+    <form action="/users/login" method="post">
+      <input type="text" name="username" placeholder="Usuario" required>
+      <input type="password" name="password" placeholder="Contraseña" required>
+      <button type="submit">Iniciar Sesión</button>
+      <div class="extra-links">
+        <a href="/users/register">Registrate</a>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

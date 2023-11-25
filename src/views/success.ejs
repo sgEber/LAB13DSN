@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registro Exitoso</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #007bff; /* Un tono de azul */
+            color: white;
+            text-align: center;
+            padding-top: 50px;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 0.5em;
+        }
+
+        p {
+            margin-bottom: 1em;
+            background-color: white;
+            color: #007bff; /* Un tono de azul */
+            display: inline-block;
+            padding: 0.5em 1em;
+            border-radius: 10px;
+        }
+
+        button {
+            background-color: white; /* Botón blanco */
+            color: #007bff; /* Texto azul */
+            border: 2px solid #007bff; /* Borde azul */
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            text-transform: uppercase;
+            outline: none;
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Azul más oscuro para el efecto hover */
+            color: white;
+            border-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Registro Exitoso</h1>
+    <p><%= message %></p>
+    <button onclick="location.href='/users/login'">Regresar al login</button>
+</body>
+</html>
+
